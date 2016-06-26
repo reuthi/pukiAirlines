@@ -1,11 +1,13 @@
 'use strict';
 
+const PHOTO_SRC = 'img/passengers/';
 const KEY_PASSENGERS = 'passengers';
 
 // This is a constructor function
-function Passenger(name, birthdate, id) {
+function Passenger(name, birthdate, phone, id) {
     this.name = name;
     this.birthdate = new Date(birthdate);
+    this.phone = phone;
     this.pin = randomPin();
     this.id = (id) ? id : Passenger.nextId();
 }
@@ -41,7 +43,7 @@ Passenger.query = function () {
     let jsonPassengers = Passenger.loadJSONFromStorage();
 
     Passenger.passengers = jsonPassengers.map(jsonPassenger => {
-        return new Passenger(jsonPassenger.name, jsonPassenger.birthdate, jsonPassenger.id);
+        return new Passenger(jsonPassenger.name, jsonPassenger.birthdate,jsonPassenger.phone, jsonPassenger.id);
     })
 
     return Passenger.passengers;
@@ -54,8 +56,9 @@ Passenger.save = function (formObj) {
         passenger = Passenger.findById(+formObj.pid);
         passenger.name = formObj.pname;
         passenger.birthdate = new Date(formObj.pdate);
+        passenger.phone = formObj.pphone;
     } else {
-        passenger = new Passenger(formObj.pname, formObj.pdate);
+        passenger = new Passenger(formObj.pname, formObj.pdate, formObj.pphone);
         passengers.push(passenger);
     }
     Passenger.passengers = passengers;
@@ -85,6 +88,7 @@ Passenger.render = function () {
                 ${moment(p.birthdate).format('DD-MM-YYYY')}
                 ${(p.isBirthday()) ? '<i class="glyphicon glyphicon-gift"></i>' : ''}
             </td>
+            <td>${p.phone}</td>
             <td>
                 <button class="btn btn-danger" onclick="Passenger.remove(${p.id}, event)">
                     <i class="glyphicon glyphicon-trash"></i>
@@ -105,6 +109,7 @@ Passenger.select = function (pId, elRow) {
     $('.details').show();
     let p = Passenger.findById(pId);
     $('.pDetailsName').html(p.name);
+    $('.passPic').attr('src',PHOTO_SRC + pId + '.jpg');
 }
 
 
@@ -124,10 +129,14 @@ Passenger.editPassenger = function (pId, event) {
         $('#pid').val(passenger.id);
         $('#pname').val(passenger.name);
         $('#pdate').val(moment(passenger.birthdate).format('YYYY-MM-DD'));
+        $('#pphone').val(passenger.phone);
+        
     } else {
         $('#pid').val('');
         $('#pname').val('');
         $('#pdate').val('');
+        $('#pphone').val('');
+        
     }
 
 
@@ -145,7 +154,5 @@ Passenger.prototype.isBirthday = function () {
 Passenger.prototype.checkPin = function (pin) {
     return pin === this.pin;
 }
-
-
 
 
