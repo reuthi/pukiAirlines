@@ -164,6 +164,32 @@ function renderPlanes(){
     $('.planes').html(strHtml);
 }
 
+function renderCountriesFrom(){
+    let countries = [' ' ,'TLV','NYC','ROM','PAR','LON'];
+    let strHtml = '<label for="src">From</label><select name="src">'
+    strHtml += countries.map(country => {
+        return '<option value="' + country + '" id="src">'+ country + '</option>'
+        
+    }).join(' ');
+    strHtml +='</select>';
+    $('.fromCountry').html(strHtml);
+    // $('.fdestination').html(strHtml);
+    
+}
+
+function renderCountriesDest(){
+    let countries = [' ','TLV','NYC','ROM','PAR','LON'];
+    let strHtml = '<label for="fdestination">To</label><select name="fdestination">'
+    strHtml += countries.map(country => {
+        return '<option value="' + country + '" id="fdestination">'+ country + '</option>'
+        
+    }).join(' ');
+    strHtml +='</select>';
+    // $('.fromCountry').html(strHtml);
+    $('.toCountry').html(strHtml);
+    
+}
+
 
 
 
