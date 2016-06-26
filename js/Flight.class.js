@@ -1,10 +1,12 @@
 const KEY_FLIGHTS = 'flights';
+var countries = [' ' ,'TLV','NYC','ROM','PAR','LON'];
+
 
 //constructor
 
-function Flight (src, destination, plane ,airline, date, id){
+function Flight (src, dest, plane ,airline, date, id){
     this.src = src;
-    this.destination = destination;
+    this.dest = dest;
     this.airline = airline;
     this.plane = plane;
     this.date = date;
@@ -32,7 +34,7 @@ Flight.query = function () {
     let jsonFlights = Flight.loadJSONFromStorage();
 
     Flight.Flights = jsonFlights.map(jsonFlight => {
-        return new Flight(jsonFlight.src, jsonFlight.destination, jsonFlight.plane, jsonFlight.airline,jsonFlight.date, jsonFlight.id);
+        return new Flight(jsonFlight.src, jsonFlight.dest, jsonFlight.plane, jsonFlight.airline,jsonFlight.date, jsonFlight.id);
     })
 
     return Flight.Flights;
@@ -46,7 +48,7 @@ Flight.save = function (formObj) {
         flight = Flight.findById(+formObj.fId);
         // console.log('flight os:',flight);
         flight.src = formObj.src;
-        flight.destination = formObj.fdestination;
+        flight.dest = formObj.fdestination;
         flight.airline = formObj.fairline;
         flight.plane = formObj.fplane;
         flight.date = formObj.fdate;
@@ -75,7 +77,7 @@ Flight.render = function(){
         return `<tr onclick="Flight.select(${f.id}, this)">
             <td>${f.id}</td>
             <td>${f.src}</td>
-            <td>${f.destination}</td>
+            <td>${f.dest}</td>
             <td>${f.plane}</td>
             <td>${f.airline}</td>
             <td>
@@ -165,8 +167,7 @@ function renderPlanes(){
 }
 
 function renderCountriesFrom(){
-    let countries = [' ' ,'TLV','NYC','ROM','PAR','LON'];
-    let strHtml = '<label for="src">From</label><select name="src">'
+    let strHtml = '<label for="src">From</label><select id="selectFrom" name="src">'
     strHtml += countries.map(country => {
         return '<option value="' + country + '" id="src">'+ country + '</option>'
         
@@ -174,13 +175,18 @@ function renderCountriesFrom(){
     strHtml +='</select>';
     $('.fromCountry').html(strHtml);
     // $('.fdestination').html(strHtml);
+    $('#selectFrom').change(function(){
+        // console.log('changed to :',$('#selectFrom').val());
+        
+        renderCountriesDest($('#selectFrom').val());
+    });
     
 }
 
-function renderCountriesDest(){
-    let countries = [' ','TLV','NYC','ROM','PAR','LON'];
+function renderCountriesDest(src){
+    let destCountries = countries.filter(country => src !== country);
     let strHtml = '<label for="fdestination">To</label><select name="fdestination">'
-    strHtml += countries.map(country => {
+    strHtml += destCountries.map(country => {
         return '<option value="' + country + '" id="fdestination">'+ country + '</option>'
         
     }).join(' ');
@@ -189,6 +195,8 @@ function renderCountriesDest(){
     $('.toCountry').html(strHtml);
     
 }
+
+
 
 
 
