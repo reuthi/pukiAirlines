@@ -63,11 +63,14 @@
           </select>
       </div>  
       
-      <button type ="button" onclick="Ticket.BookIt();">book it</button>
+      <button type ="button" onclick="Ticket.Search();">search</button>
       
       </form>  
        
-       <div class="flight"></div>
+       <div class="<flightContainer</flight>">
+         <div class="dateContaine"></div>
+         <div class="planeContainer"></div>
+       </div>
     </div>      
 
 
@@ -83,7 +86,8 @@
     <script src="lib/jquery.serializejson.min.js"></script>
     <script src="lib/bootstrap/javascripts/bootstrap.min.js"></script>
     <script src="lib/moment.min.js"></script>
-    <script src="js/Flight.class.js"></script>    
+    <script src="js/Flight.class.js"></script> 
+    <script src="js/Plane.class.js"></script>           
     <script src="js/general.js"></script>
     <script src="js/booking.js"></script>
         
