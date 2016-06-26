@@ -10,11 +10,12 @@ $(document).ready(()=>{
 });
 
 
-function Ticket (src, dest, id) {
+function Ticket (src, dest, date, avilableSits) {
     this.src = src;
     this.dest = dest;
-    this.id = id;
-    this.date = '';
+    // this.id = id;
+    this.date = date;
+    this.avilableSits = avilableSits;
 }
 
 
@@ -35,32 +36,35 @@ Ticket.loadJSONFromStorage = function () {
     return tickets;
 }
 
-Ticket.BookIt = function () {
+Ticket.Search = function () {
     var formObj = $('form').serializeJSON();
-    console.log(formObj)
+    let flight = Ticket.getFlight(formObj.bsrc, formObj.bdest);
+    let flightAvilableSits = Ticket.getAvilableSits(flight)
     let tickets = Ticket.query();
-    let ticket = new Ticket (formObj.bsrc, formObj.bdest);
-    // console.log('form')
+    let ticket = new Ticket (formObj.bsrc, formObj.bdest, flight.date, flightAvilableSits);
     tickets.push(ticket);
     Ticket.tickets = tickets;
     saveToStorage(KEY_TICKETS, tickets);
-    Ticket.getFlight(formObj.bsrc, formObj.bdest);
-    // return false;
+    Ticket.renderFlight(flight.date, flightAvilableSits)
 }
 
 Ticket.getFlight = function (src, dest) {
-    
     let flights = Flight.query();  
-    // let tickets = Ticket.query();
-    console.log(flights)
-    
-    let flightSrc = flights.filter(flight => flight.src === src);
-    // console.log(flightSrc[0])
-    
-    let flight = flightSrc.filter(flight => flight.dest === dest);
-    
-    console.log(flight)
+    let flight = flights.filter(flight => flight.src === src && flight.dest === dest);
+    return flight;
 }
+
+Ticket.getAvilableSits = function (flight) {
+    let planes = Plane.query();
+    let plane = planes.filter(plane => plane.model === flight.plane);
+    return plane.sitsCount;
+}
+
+Ticket.renderFlight = function (date, avilableSits) {
+   $('.dateContaine').html(flight.date);
+    $('.planeContainer').html(plane.sitsCount)  
+}
+
 
 // TODO: anonymos func:
 $('#bsrc').on('change', function() {
@@ -85,7 +89,7 @@ Ticket.renderDests = function (src) {
 
     flights = flights.filter(flight => flight.src === src);
     
-    // console.log(flights)
+    console.log(flights)
     
     // let id = Ticket.findFlightById(flights)
 
