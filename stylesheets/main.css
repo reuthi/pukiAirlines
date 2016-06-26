@@ -6238,4 +6238,16 @@ footer {
 .booking {
   border: 1px solid black;
   padding: 5%;
-  margin: 5%; }
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+
+.booking form {
+  margin: 3%;
+  padding: 3%; }
+
+.booking .flightContainer {
+  margin: 3%;
+  padding: 3%; }

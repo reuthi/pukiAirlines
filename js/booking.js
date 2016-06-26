@@ -1,6 +1,7 @@
 'use strict';
 
 const KEY_TICKETS = 'tickets';
+// const PHOTO_SRC = 'img/passengers/';
 
 
 $(document).ready(()=>{
@@ -40,6 +41,8 @@ Ticket.Search = function () {
     var formObj = $('form').serializeJSON();
     let flight = Ticket.getFlight(formObj.bsrc, formObj.bdest);
     let flightAvilableSits = Ticket.getAvilableSits(flight)
+    console.log(flightAvilableSits)
+    
     let tickets = Ticket.query();
     let ticket = new Ticket (formObj.bsrc, formObj.bdest, flight.date, flightAvilableSits);
     tickets.push(ticket);
@@ -50,19 +53,25 @@ Ticket.Search = function () {
 
 Ticket.getFlight = function (src, dest) {
     let flights = Flight.query();  
-    let flight = flights.filter(flight => flight.src === src && flight.dest === dest);
-    return flight;
+    let flight = flights.filter(flight => flight.src === src && flight.dest === dest); 
+    return flight[0];
 }
 
 Ticket.getAvilableSits = function (flight) {
+        console.log(flight)
+    console.log(flight.plane)    
     let planes = Plane.query();
+    console.log(planes);    
     let plane = planes.filter(plane => plane.model === flight.plane);
-    return plane.sitsCount;
+    console.log(plane[0])
+    return plane[0].sitsCount;
 }
 
 Ticket.renderFlight = function (date, avilableSits) {
-   $('.dateContaine').html(flight.date);
-    $('.planeContainer').html(plane.sitsCount)  
+    console.log(date, avilableSits);
+    $('.flightContainer').css('display', 'block')
+   $('.dateContaineText').html(date);
+    $('.planeContainerText').html('sits count: ' + avilableSits)  
 }
 
 
@@ -71,6 +80,22 @@ $('#bsrc').on('change', function() {
     let src = this.value;
     Ticket.renderDests(src);
     Ticket.findFlightById
+});
+
+$('#bpass').on('change', function() {
+    console.log(this.value)
+    let passengerName = this.value;
+    let passengers = Passenger.query();
+    // console.log(passengers)
+    passengers = passengers.filter(p => p.name === passengerName);
+    // console.log(passengers)
+    // console.log
+    (passengers[0].id).append('');
+    
+     $('.imgPassCont').attr('src',PHOTO_SRC + passengers[0].id + '.jpg');
+
+    // passengers[0].id
+    
 });
 
 Ticket.renderSrcs = function  () {
@@ -106,3 +131,24 @@ Ticket.renderDests = function (src) {
 //     flights = flights.filter(flight => flight.src === src);
 //     return id = flight[0].id;
 // }
+
+
+Ticket.BookIt = function () {
+     $('#modalPass').modal('show');
+     Ticket.renderPass();
+}
+
+Ticket.renderPass = function () {
+    let passengers = Passenger.query();    
+    // let passengersNames = passengers.map(p => {
+    //    return p.name
+    // })
+    
+    let strHTML = `<option value=""></option>`
+        strHTML += passengers.map(p => {
+    return `<option value="${p.name}"> ${p.name} </option>`     
+    }).join(' ');  
+    
+    $('#bpass').html(strHTML);
+
+};

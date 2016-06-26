@@ -2,5 +2,21 @@
     border: 1px solid black;
     padding: 5%;
     margin:  5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     
+    form {
+        margin: 3%;
+        padding: 3%;
+    }        
+    
+    
+    .flightContainer {
+        margin: 3%;
+        padding: 3%;
+        // font-size: 2vw;
+        // background-color: pink
+    }
 }
