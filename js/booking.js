@@ -3,23 +3,35 @@
 
 $(document).ready(()=>{
 
-    renderFrom();
-
+    rendersrcs();
+    new Ticket ();  
 });
 
-function renderFrom () {
-    $('#bsrc').val(getFrom());
-    let src = $('#bsrc').val
+function Ticket () {
+    this.src = Ticket.getSrc();
+}
+
+ Ticket.getSrc = function () {
+    $('#bsrc').on('change', function(e) {
+        console.log(this.value) 
+    });
+}
+
+function rendersrcs () {
+    $('#bsrc').val(getSrcs());
 }
 
 
-function getFrom () {
+function getSrcs () {
     let flights = Flight.query();  
     
     var strHTML = flights.map(flight => {
-    return `<option value="${flight.country}"> ${flight.country} </option>`     
+    return `<option value="${flight.src}"> ${flight.src} </option>`     
     }).join(' ');    
     
+    console.log(strHTML);   
     $('#bsrc').html(strHTML);
 }
+
+
 
