@@ -113,7 +113,7 @@ Flight.editFlight = function(fId, event) {
         let flight = Flight.findById(fId);
         $('#fId').val(flight.id);
         $('#src').val(flight.src);
-        $('#fdestination').val(flight.destination);
+        $('#fdestination').val(flight.dest);
         $('#fplane').val(flight.plane);
         $('#fairline').val(flight.airline);
         $('#fdate').val(moment(flight.date).format('YYYY-MM-DD'));
