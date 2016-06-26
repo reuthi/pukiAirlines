@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="Flight.render();renderPlanes();renderCountriesFrom();renderCountriesDest()">
+<body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -124,7 +124,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="Flight.saveFlight()">Save</button>
+                <button type="button" class="btn btn-primary" onclick="Flight.saveFlight()">Save
+                    <span class="glyphicon glyphicon-save"></span>
+                </button>
             </div>
         </div>
     </div>

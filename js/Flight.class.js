@@ -1,7 +1,12 @@
 const KEY_FLIGHTS = 'flights';
 var countries = [' ' ,'TLV','NYC','ROM','PAR','LON'];
 
-
+$(document).ready(() => {
+    Flight.render();
+    renderPlanes();
+    renderCountriesFrom();
+    renderCountriesDest();
+});
 //constructor
 
 function Flight (src, dest, plane ,airline, date, id){

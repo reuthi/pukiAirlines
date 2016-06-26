@@ -155,4 +155,6 @@ Passenger.prototype.checkPin = function (pin) {
     return pin === this.pin;
 }
 
-
+Passenger.prototype.getFlights = function () {
+    return this.flights;
+}
