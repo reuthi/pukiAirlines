@@ -52,6 +52,8 @@
       <form>
         
       <div class="form-group">
+        <input type="hidden" id="bid" name="bid" >
+
         <label for="bsrc">from</label>
         <select name="bsrc" class="form-control" id="bsrc">
         </select>
@@ -61,9 +63,11 @@
           </select>
       </div>  
       
-      <button onclick="Ticket.BookIt()">book it</button>
+      <button type ="button" onclick="Ticket.BookIt();">book it</button>
+      
       </form>  
        
+       <div class="flight"></div>
     </div>      
 
 
