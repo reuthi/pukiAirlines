@@ -2,8 +2,8 @@ const KEY_FLIGHTS = 'flights';
 
 //constructor
 
-function Flight (country, destination, plane ,airline, date, id){
-    this.country = country;
+function Flight (src, destination, plane ,airline, date, id){
+    this.src = src;
     this.destination = destination;
     this.airline = airline;
     this.plane = plane;
@@ -32,7 +32,7 @@ Flight.query = function () {
     let jsonFlights = Flight.loadJSONFromStorage();
 
     Flight.Flights = jsonFlights.map(jsonFlight => {
-        return new Flight(jsonFlight.country, jsonFlight.destination, jsonFlight.plane, jsonFlight.airline,jsonFlight.date, jsonFlight.id);
+        return new Flight(jsonFlight.src, jsonFlight.destination, jsonFlight.plane, jsonFlight.airline,jsonFlight.date, jsonFlight.id);
     })
 
     return Flight.Flights;
@@ -45,13 +45,13 @@ Flight.save = function (formObj) {
     if (formObj.fId) {
         flight = Flight.findById(+formObj.fId);
         // console.log('flight os:',flight);
-        flight.country = formObj.fcountry;
+        flight.src = formObj.src;
         flight.destination = formObj.fdestination;
         flight.airline = formObj.fairline;
         flight.plane = formObj.fplane;
         flight.date = formObj.fdate;
     } else {
-        flight = new Flight(formObj.fcountry, formObj.fdestination,formObj.fplane, formObj.fairline, formObj.fdate);
+        flight = new Flight(formObj.src, formObj.fdestination,formObj.fplane, formObj.fairline, formObj.fdate);
         flights.push(flight);
     }
     // console.log('flights',flights);
@@ -74,7 +74,7 @@ Flight.render = function(){
     var strHtml = flights.map( f => {
         return `<tr onclick="Flight.select(${f.id}, this)">
             <td>${f.id}</td>
-            <td>${f.country}</td>
+            <td>${f.src}</td>
             <td>${f.destination}</td>
             <td>${f.plane}</td>
             <td>${f.airline}</td>
@@ -110,14 +110,14 @@ Flight.editFlight = function(fId, event) {
     if (fId) {
         let flight = Flight.findById(fId);
         $('#fId').val(flight.id);
-        $('#fcountry').val(flight.country);
+        $('#src').val(flight.src);
         $('#fdestination').val(flight.destination);
         $('#fplane').val(flight.plane);
         $('#fairline').val(flight.airline);
         $('#fdate').val(moment(flight.date).format('YYYY-MM-DD'));
     } else {
         $('#fId').val('');
-        $('#fcountry').val('');
+        $('#src').val('');
         $('#fdate').val('');
         $('#fdestination').val('');
         $('#fplane').val('');
