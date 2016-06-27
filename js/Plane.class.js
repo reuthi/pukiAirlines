@@ -128,3 +128,29 @@ Plane.remove = function (pId, event) {
     Plane.render();
 }
 
+Plane.updateSitscount = function (id) {
+    let flights = Flight.query();
+    let flight = Flight.findById(id);
+    
+    let planes = Plane.query();
+    let plane;
+    planes = planes.filter(p => {
+        return p.model === flight.plane
+    });
+    console.log(planes);    
+    planes[0].sitsCount = (+planes[0].sitsCount) - 1;
+     $('.planeContainerText').html('sits count: ' + planes[0].sitsCount);
+    // Plane.remove(plane);
+    console.log(planes[0]);
+    plane = Plane.findById (planes[0].id);
+    plane.model = planes[0].model;
+    plane.sitsCount = planes[0].sitsCount;
+    
+    // plane = new Plane (plane.model, plane.sitsCount, plane.id)
+    // planes.push(plane)
+    Plane.planes = planes;
+    saveToStorage(KEY_PLANES, planes);
+
+    
+    
+}
