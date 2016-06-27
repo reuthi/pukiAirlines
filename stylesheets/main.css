@@ -6211,29 +6211,46 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+@font-face {
+  font-family: 'MyWebFont';
+  src: url("../font/Snickles.ttf"); }
+
 header {
   text-align: center;
   display: flex;
   flex-flow: row wrap;
-  background-color: indigo;
+  justify-content: center;
   padding: 10px;
   margin-bottom: 10px; }
 
 header h1 {
   color: gold;
-  transition: all 3s; }
+  font-size: 6em;
+  font-family: MyWebFont;
+  letter-spacing: 4px; }
 
-header h1:hover {
-  color: lightblue;
-  font-size: 3em; }
+.navbar {
+  font-family: MyWebFont;
+  letter-spacing: 3px;
+  font-size: 1.3em; }
 
 footer {
   background-color: black;
   text-align: center;
   color: #777; }
 
+nav ul :hover {
+  background-color: greenyellow; }
+
 .passengerPage .details .pDetailsName {
   color: orange; }
+
+.passDet {
+  display: flex; }
+
+.passDetails {
+  font-size: 1.3em;
+  padding: 2%; }
 
 .booking {
   border: 1px solid black;
@@ -6251,7 +6268,3 @@ footer {
 .booking .flightContainer {
   margin: 3%;
   padding: 3%; }
-
-body {
-  background: url("../../img/background.jpg");
-  background-repeat: no-repeat; }

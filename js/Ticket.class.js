@@ -82,6 +82,7 @@ Ticket.renderFlight = function (date, avilableSits) {
 Ticket.getFlight = function (src, dest) {
     let flights = Flight.query();  
     let flight = flights.filter(flight => flight.src === src && flight.dest === dest); 
+    console.log(flight[0], flight[0].id)
     return flight[0];
 }
 
@@ -126,6 +127,7 @@ Ticket.renderPass = function () {
 
 Ticket.savePass = function () {
     var formObj = $('form').serializeJSON();
+    // console.log(formObj.bsrc, formObj.bdest)
     let flight = Ticket.getFlight(formObj.bsrc, formObj.bdest);
     // $('#bpass').val;
     // console.log('ticket: ', $('#bpass').val());
@@ -137,12 +139,12 @@ Ticket.savePass = function () {
     // var a= $('#bpass').val();
     //     console.log('ticket: ',a);
     
-    console.log('ticket', ticket);
     
     
     
     tickets.push(ticket);
     Ticket.tickets = tickets;
+    console.log('ticket', tickets);
     saveToStorage(KEY_TICKETS, tickets);
     $('#modalPass').modal('hide');
     Plane.updateSitscount(flight.id)

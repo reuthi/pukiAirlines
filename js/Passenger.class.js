@@ -110,14 +110,24 @@ Passenger.select = function (pId, elRow) {
     let p = Passenger.findById(pId);
     $('.pDetailsName').html(p.name);
     $('.passPic').attr('src',PHOTO_SRC + pId + '.jpg');
+    let jsonTickets = getFromStorage('tickets');
+    let tickets = jsonTickets.filter(t => t.passName === p.name )
+    console.log('tickets',tickets);
+    let jsonFlights = getFromStorage('flights');
+    let flights = jsonFlights.filter(f => f.id === tickets[0].flightId )
+    
+    console.log('flights',flights);
+    // console.log('ticket[0]',tickets[0].flightId);
+    let str ='';
+    str += flights[0].airline +'<br>'+ flights[0].date +'<br>'+  flights[0].src +'<span class="glyphicon glyphicon-arrow-right"></span>'+ flights[0].dest +'<br>'+ flights[0].plane ;
+    $('.passDetails').html(str);
+    
 }
 
 
 Passenger.savePassenger = function () {
     var formObj = $('form').serializeJSON();
     console.log('formObj', formObj);
-
-
     Passenger.save(formObj);
     Passenger.render();
     $('#modalPassenger').modal('hide');
