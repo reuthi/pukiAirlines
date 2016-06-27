@@ -6215,6 +6215,10 @@ button.close {
   font-family: 'MyWebFont';
   src: url("../font/Snickles.ttf"); }
 
+@font-face {
+  font-family: 'MyWebFont2';
+  src: url("../font/trench100free.ttf"); }
+
 header {
   text-align: center;
   display: flex;
@@ -6253,18 +6257,20 @@ nav ul :hover {
   padding: 2%; }
 
 .booking {
-  border: 1px solid black;
-  padding: 5%;
-  margin: 5%;
+  padding: 3%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center; }
 
-.booking form {
-  margin: 3%;
-  padding: 3%; }
+.booking label {
+  font-family: MyWebFont2;
+  font-size: 2em; }
+
+.booking .buttonSearch {
+  font-family: MyWebFont2;
+  font-size: 2em; }
 
 .booking .flightContainer {
-  margin: 3%;
-  padding: 3%; }
+  display: none;
+  font-size: 2em; }
