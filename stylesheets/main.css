@@ -6251,3 +6251,7 @@ footer {
 .booking .flightContainer {
   margin: 3%;
   padding: 3%; }
+
+body {
+  background: url("../../img/background.jpg");
+  background-repeat: no-repeat; }
